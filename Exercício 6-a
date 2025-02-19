@@ -1,0 +1,50 @@
+
+
+// Classe Círculo
+class Circulo {
+    private double raio;
+
+    public Circulo(double raio) {
+        if (raio <= 0) {
+            throw new IllegalArgumentException("O raio deve ser maior que zero.");
+        }
+        this.raio = raio;
+    }
+
+    public double getRaio() {
+        return raio;
+    }
+
+    public void setRaio(double raio) {
+        if (raio <= 0) {
+            throw new IllegalArgumentException("O raio deve ser maior que zero.");
+        }
+        this.raio = raio;
+    }
+
+    public double calcularArea() {
+        return Math.PI * Math.pow(raio, 2);
+    }
+
+    public double calcularPerimetro() {
+        return 2 * Math.PI * raio;
+    }
+
+    @Override
+    public String toString() {
+        return "Círculo com raio: " + raio + " | Área: " + calcularArea() + " | Perímetro: " + calcularPerimetro();
+    }
+}
+
+// Classe Main para testar a classe Círculo
+public class Main {
+    public static void main(String[] args) {
+        Circulo circulo = new Circulo(5.0);
+
+        System.out.println("Raio do círculo: " + circulo.getRaio());
+        System.out.println("Área: " + circulo.calcularArea());
+        System.out.println("Perímetro: " + circulo.calcularPerimetro());
+
+        System.out.println("\n" + circulo);
+    }
+}
