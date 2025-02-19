@@ -1,0 +1,81 @@
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Cliente {
+    private String nome, cpf;
+    public Cliente(String nome, String cpf) { this.nome = nome; this.cpf = cpf; }
+    public String getNome() { return nome; }
+}
+
+class ContaBancaria {
+    private String numero;
+    private Cliente cliente;
+    private double saldo;
+
+    public ContaBancaria(String numero, Cliente cliente) {
+        this.numero = numero; this.cliente = cliente; this.saldo = 0.0;
+    }
+
+    public String depositar(double valor) {
+        if (valor > 0) { saldo += valor; return "Depósito de R$" + valor + " realizado!"; }
+        return "Valor inválido.";
+    }
+
+    public String sacar(double valor) {
+        if (valor > 0 && valor <= saldo) { saldo -= valor; return "Saque de R$" + valor + " realizado!"; }
+        return "Saldo insuficiente.";
+    }
+
+    public String transferir(double valor, ContaBancaria destino) {
+        if (valor > 0 && valor <= saldo) { saldo -= valor; destino.saldo += valor; return "Transferência realizada!"; }
+        return "Saldo insuficiente.";
+    }
+
+    @Override
+    public String toString() {
+        return "Conta " + numero + " | Cliente: " + cliente.getNome() + " | Saldo: R$" + saldo;
+    }
+}
+
+class Banco {
+    private Map<String, Cliente> clientes = new HashMap<>();
+    private Map<String, ContaBancaria> contas = new HashMap<>();
+
+    public String cadastrarCliente(String nome, String cpf) {
+        if (clientes.containsKey(cpf)) return "Cliente já cadastrado.";
+        clientes.put(cpf, new Cliente(nome, cpf));
+        return "Cliente cadastrado!";
+    }
+
+    public String abrirConta(String cpf, String numeroConta) {
+        if (clientes.containsKey(cpf) && !contas.containsKey(numeroConta)) {
+            contas.put(numeroConta, new ContaBancaria(numeroConta, clientes.get(cpf)));
+            return "Conta aberta com sucesso!";
+        }
+        return "Erro ao abrir conta.";
+    }
+
+    public ContaBancaria buscarConta(String numeroConta) { return contas.get(numeroConta); }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Banco banco = new Banco();
+        System.out.println(banco.cadastrarCliente("João", "123"));
+        System.out.println(banco.abrirConta("123", "1001"));
+
+        ContaBancaria conta1 = banco.buscarConta("1001");
+        System.out.println(conta1.depositar(500));
+        System.out.println(conta1.sacar(200));
+
+        System.out.println(banco.cadastrarCliente("Maria", "987"));
+        System.out.println(banco.abrirConta("987", "1002"));
+
+        ContaBancaria conta2 = banco.buscarConta("1002");
+        System.out.println(conta1.transferir(100, conta2));
+
+        System.out.println(conta1);
+        System.out.println(conta2);
+    }
+}
