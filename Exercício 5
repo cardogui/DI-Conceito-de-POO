@@ -1,0 +1,51 @@
+
+
+// Classe Veiculo
+class Veiculo {
+    private String modelo;
+    private double valorDiario;
+
+    public Veiculo(String modelo, double valorDiario) {
+        this.modelo = modelo;
+        this.valorDiario = valorDiario;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public double getValorDiario() {
+        return valorDiario;
+    }
+
+    public double calcularAluguel(int dias) {
+        if (dias <= 0) {
+            throw new IllegalArgumentException("O número de dias deve ser maior que zero.");
+        }
+        return valorDiario * dias;
+    }
+
+    @Override
+    public String toString() {
+        return "Veículo: " + modelo + " | Valor Diário: R$" + valorDiario;
+    }
+}
+
+// Classe Main para testar o sistema
+public class Main {
+    public static void main(String[] args) {
+        // Criando alguns veículos
+        Veiculo carro1 = new Veiculo("Toyota Corolla", 150.0);
+        Veiculo carro2 = new Veiculo("Honda Civic", 170.0);
+        
+        // Exibindo os veículos
+        System.out.println(carro1);
+        System.out.println(carro2);
+        
+        // Simulando uma locação
+        int dias = 5;
+        System.out.println("\nCálculo do aluguel:");
+        System.out.println("Alugando " + carro1.getModelo() + " por " + dias + " dias. Total: R$" + carro1.calcularAluguel(dias));
+        System.out.println("Alugando " + carro2.getModelo() + " por " + dias + " dias. Total: R$" + carro2.calcularAluguel(dias));
+    }
+}
