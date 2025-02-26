@@ -75,19 +75,19 @@ class Banco {
     }
 }
 
-public class ATV4 { // Alterei o nome da classe pública para ATV4
+public class ATV4 { 
     public static void main(String[] args) {
         Banco banco = new Banco();
 
         banco.cadastrarCliente("João Silva", "123.456.789-00");
         banco.abrirConta("001", "123.456.789-00");
-        banco.abrirConta("002", "123.456.789-00"); // Criando a conta 002
+        banco.abrirConta("002", "123.456.789-00"); 
 
         banco.depositar("001", 1000);
         banco.sacar("001", 200);
         banco.transferir("001", "002", 300);
 
-        // Verificar saldo das contas
+      
         ContaBancaria conta001 = banco.contas.get("001");
         ContaBancaria conta002 = banco.contas.get("002");
         if (conta001 != null) {
